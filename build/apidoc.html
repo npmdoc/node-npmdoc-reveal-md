@@ -1,0 +1,338 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+    >reveal-md (v0.1.3)</a>
+</h1>
+<h4>reveal.js on steroids! Get beautiful reveal.js presentations from your Markdown files.</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.reveal-md">module reveal-md</a><ol>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">reveal-md.</span>options</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">reveal-md.</span>render</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.reveal-md.options">module reveal-md.options</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.reveal-md.options.parseOptions">
+            function <span class="apidocSignatureSpan">reveal-md.options.</span>parseOptions
+            <span class="apidocSignatureSpan">(args)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.reveal-md.options.parsePath">
+            function <span class="apidocSignatureSpan">reveal-md.options.</span>parsePath
+            <span class="apidocSignatureSpan">(pathArg, baseDir)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.reveal-md.render">module reveal-md.render</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.reveal-md.render.render">
+            function <span class="apidocSignatureSpan">reveal-md.</span>render
+            <span class="apidocSignatureSpan">(markdown, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.reveal-md.render.parseSlides">
+            function <span class="apidocSignatureSpan">reveal-md.render.</span>parseSlides
+            <span class="apidocSignatureSpan">(markdown, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.reveal-md.render.renderMarkdownAsSlides">
+            function <span class="apidocSignatureSpan">reveal-md.render.</span>renderMarkdownAsSlides
+            <span class="apidocSignatureSpan">(req, res)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.reveal-md.render.renderMarkdownFileListing">
+            function <span class="apidocSignatureSpan">reveal-md.render.</span>renderMarkdownFileListing
+            <span class="apidocSignatureSpan">(req, res)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.reveal-md" id="apidoc.module.reveal-md">module reveal-md</a></h1>
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.reveal-md.options" id="apidoc.module.reveal-md.options">module reveal-md.options</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.reveal-md.options.parseOptions" id="apidoc.element.reveal-md.options.parseOptions">
+        function <span class="apidocSignatureSpan">reveal-md.options.</span>parseOptions
+        <span class="apidocSignatureSpan">(args)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function parseOptions(args) {
+
+  const options = _.pick(args, optionList);
+
+  if(_.has(args, &#x27;args.0&#x27;)) _.extend(options, parsePath(args.args[0]));
+
+  options.themePath = parseThemeArg(args.theme || defaults.theme);
+  options.scriptPaths = parseScriptsArg(args.scripts);
+  options.scriptSources = parseScriptsPath(args.scripts);
+  options.title = args.title || defaults.title;
+  options.separator = args.separator || defaults.separator;
+  options.verticalSeparator = args.verticalSeparator || defaults.verticalSeparator;
+  options.highlightTheme = args.highlightTheme || defaults.highlightTheme;
+  options.preprocessorFn = parsePreprocessorArg(args.preprocessor);
+
+  options.revealBasePath = revealBasePath;
+  options.highlightThemePath = highlightThemePath;
+
+  options.base = () =&#x3e; options.host &#x26;&#x26; options.port &#x26;&#x26; !options.static ? `//${options.host}:${options.port}` : &#x27;.&#x27;;
+  options.template = () =&#x3e; template;
+  options.templateListing = () =&#x3e; templateListing;
+  options.themeUrl = () =&#x3e; getThemeUrl(options);
+  options.highlightThemeUrl = () =&#x3e; `${options.base()}/css/highlight/${options.highlightTheme}.css`;
+  options.revealOptionsStr = () =&#x3e; JSON.stringify(options.revealOptions || defaults.revealOptions);
+
+  return options;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.reveal-md.options.parsePath" id="apidoc.element.reveal-md.options.parsePath">
+        function <span class="apidocSignatureSpan">reveal-md.options.</span>parsePath
+        <span class="apidocSignatureSpan">(pathArg, baseDir)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function parsePath(pathArg, baseDir) {
+  const opts = {};
+  if(pathArg === &#x27;demo&#x27;) {
+    opts.basePath = path.join(__dirname, &#x27;..&#x27;, &#x27;demo&#x27;);
+  } else if(pathArg) {
+    const filePath = path.join(baseDir || process.cwd(), pathArg);
+    if(fs.existsSync(filePath)) {
+      const stat = fs.statSync(filePath);
+      if(stat.isFile()) {
+        opts.basePath = path.dirname(filePath);
+        opts.baseName = path.basename(filePath);
+        opts.relativePath = path.relative(process.cwd(), filePath);
+      } else if(stat.isDirectory()) {
+        opts.baseDir = filePath;
+      }
+    } else {
+      const parsedUrl = url.parse(pathArg);
+      if(parsedUrl.host) {
+        opts.url = parsedUrl.href;
+      } else {
+        opts.basePath = process.cwd();
+      }
+    }
+  }
+  return opts;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.reveal-md.render" id="apidoc.module.reveal-md.render">module reveal-md.render</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.reveal-md.render.render" id="apidoc.element.reveal-md.render.render">
+        function <span class="apidocSignatureSpan">reveal-md.</span>render
+        <span class="apidocSignatureSpan">(markdown, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function render(markdown, options) {
+
+  const slides = parseSlides(markdown, options);
+
+  const view = _.extend(slides.view, {
+    slides: slides.slides,
+    scripts: slides.view.scripts
+  });
+
+  debug(`Rendering ${options.relativePath} with %O from %O`, view, markdown);
+
+  return Mustache.to_html(view.template(), view);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.reveal-md.render.parseSlides" id="apidoc.element.reveal-md.render.parseSlides">
+        function <span class="apidocSignatureSpan">reveal-md.render.</span>parseSlides
+        <span class="apidocSignatureSpan">(markdown, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function parseSlides(markdown, options) {
+  const yaml = parseYamlFrontMatter(markdown);
+  const view = parseOptions(_.merge({}, options, yaml.options));
+  const slidifyOptions = getSlidifyOptions(view);
+  const processedMarkdown = view.preprocessorFn(yaml.markdown, view);
+  return {
+    view,
+    slides: md.slidify(processedMarkdown, slidifyOptions)
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.reveal-md.render.renderMarkdownAsSlides" id="apidoc.element.reveal-md.render.renderMarkdownAsSlides">
+        function <span class="apidocSignatureSpan">reveal-md.render.</span>renderMarkdownAsSlides
+        <span class="apidocSignatureSpan">(req, res)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function renderMarkdownAsSlides(req, res) {
+
+  const options = res.locals.options;
+
+  const readMarkdown = options.url
+    ? got(options.url).then(response =&#x3e; response.body)
+    : fs.readFileAsync(options.relativePath).then(markdown =&#x3e; markdown.toString());
+
+  readMarkdown.then(markdown =&#x3e; render(markdown, options)).then(markup =&#x3e; res.send(markup));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.reveal-md.render.renderMarkdownFileListing" id="apidoc.element.reveal-md.render.renderMarkdownFileListing">
+        function <span class="apidocSignatureSpan">reveal-md.render.</span>renderMarkdownFileListing
+        <span class="apidocSignatureSpan">(req, res)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function renderMarkdownFileListing(req, res) {
+
+  const options = res.locals.options;
+  const list = glob.sync(&#x27;**/*.md&#x27;, {
+    cwd: options.baseDir,
+    ignore: &#x27;node_modules/**&#x27;
+  }).map(filePath =&#x3e; `&#x3c;a href=&#x22;${filePath}&#x22;&#x3e;${filePath}&#x3c;/a&#x3e;`);
+
+  const markup = Mustache.to_html(options.templateListing(), {
+    themeUrl: options.themeUrl,
+    title: options.title,
+    listing: list.join(&#x27;&#x3c;br&#x3e;&#x27;)
+  });
+
+  res.send(markup);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
